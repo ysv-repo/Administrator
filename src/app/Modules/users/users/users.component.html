@@ -1,0 +1,270 @@
+<p-toast></p-toast>
+<!-- Data Table -->
+<div class="col" *ngIf="dataSource.filteredData.length > 0">
+  <div class="card">
+    <div class="card-body">
+        <div>
+
+          <i class="pi pi-plus" role="button" matTooltip="Add New User"
+            style="font-size: x-large; color: #041b4feb; border-color: white;   float: right;margin-bottom: 3px;margin-right: 15px;"
+            (click)="addDetails()">New</i>
+
+          <i class="pi pi-file-excel" role="button" matTooltip="Export To Excel"
+            style="font-size: x-large; color: #041b4feb; border-color: white;   float: right;margin-bottom: 3px;margin-right: 15px;"
+            (click)="table.exportTable('csv', {fileName:
+              'Users'})">Xlsx</i>
+
+          <i class="pi pi-file-pdf" role="button" matTooltip="Export To Pdf"
+            style="font-size: x-large; color: #041b4feb; border-color: white;   float: right; margin-bottom: 3px; margin-right: 15px;"
+            (click)="toPdf()">Pdf</i>
+
+        </div>
+      <div class="mat-elevation-z8">
+        <table id="user_table" mat-table matSort matTableExporter #table="matTableExporter" [hiddenColumns]="[0, 12]" [dataSource]="dataSource"
+          [ngClass]="['table']">
+          <ng-container matColumnDef="profilePic">
+            <th mat-header-cell *matHeaderCellDef [ngClass]="['tableHeader']"
+              >
+              Profile Pic
+            </th>
+            <div>
+              <td mat-cell *matCellDef="let element" [ngClass]="['tableData']">
+                <img *ngIf="element.picByte != null" [src]="element.picByte"
+                  style="height: 50px; border-radius: 50% !important" role="button"
+                  (click)="showUploadProfilePicDialog(element)" matTooltip="{{element.userName.toUpperCase()}}"/>
+
+                <img *ngIf="element.picByte == null"
+                  src="https://media.istockphoto.com/id/1016744004/vector/profile-placeholder-image-gray-silhouette-no-photo.jpg?s=612x612&w=0&k=20&c=mB6A9idhtEtsFXphs1WVwW_iPBt37S2kJp6VpPhFeoA="
+                  style="height: 50px; border-radius: 50% !important" role="button"
+                  (click)="showUploadProfilePicDialog(element)"  />
+              </td>
+            </div>
+          </ng-container>
+
+          <ng-container matColumnDef="userName">
+            <th mat-header-cell *matHeaderCellDef [ngClass]="['tableHeader']"
+              >
+              User Name
+            </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="['tableData']">
+              {{ element.userName }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef [ngClass]="['tableHeader']"
+              >
+              First Name
+            </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="['tableData']">
+              {{ element.firstName }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef [ngClass]="['tableHeader']"
+              >
+              Last Name
+            </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="['tableData']">
+              {{ element.lastName }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="designation">
+            <th mat-header-cell *matHeaderCellDef [ngClass]="['tableHeader']"
+              >
+              Designation
+            </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="['tableData']">
+              {{ element.designation }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="contactNo">
+            <th mat-header-cell *matHeaderCellDef [ngClass]="['tableHeader']"
+              >
+              Contact No
+            </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="['tableData']">
+              {{ element.contactNo }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef [ngClass]="['tableHeader']"
+              >
+              Email ID
+            </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="['tableData']">
+              {{ element.email }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="activeflag">
+            <th mat-header-cell *matHeaderCellDef [ngClass]="['tableHeader']"
+              >
+              Status
+            </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="['tableData']">
+              <mat-slide-toggle style="color: rgb(235, 243, 235);" [(ngModel)]="element.activeflag" (change)="enableDisableUser(element)"
+               matTooltip="{{element.activeflag ? 'Click To Disable':'Click To Enable'}}">
+              </mat-slide-toggle>{{element.activeflag+"" == "true" ? "Active" :"InActive"}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Action">
+            <th mat-header-cell *matHeaderCellDef [ngClass]="['tableHeader']"  > Action
+
+            </th>
+            <td mat-cell *matCellDef="let element" [ngClass]="['tableData']">
+              <i class="fa fa-edit" role="button" style="color: #041b4feb; font-size: x-large"
+                (click)="editDetails(element)" matTooltip="Edit User"></i>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 15,dataSource.data.length]" [ngClass]="['paginator']"
+          aria-label="Select page of periodic elements">
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="
+    position: fixed;
+    text-align: center;
+    margin-left: 10px;
+    margin-bottom: 10px;
+  ">
+</div>
+
+<!-- confirmation popup -->
+<app-confirmationdialog #confirmationModal (newConfirmationEvent)="getConfirmationValue($event)"
+  [modalBody]="modalBody"></app-confirmationdialog>
+
+<!-- add or edit popup -->
+<div class="overlay" *ngIf="showAddPopUp || showEditPopup">
+  <div class="popup">
+    <div class="modal-header" >
+      <h3 class="modal-title" *ngIf="showAddPopUp">Add User</h3>
+      <h3 class="modal-title" *ngIf="showEditPopup">Edit User</h3>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+        (click)="showEditPopup = false; showAddPopUp = false"></button>
+    </div>
+    <div>
+      <form #regForm="ngForm">
+        <div class="card">
+          <div class="card-body">
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <label for="username" styleClass="labelStyle">User Name:</label>
+                  <input #username [(ngModel)]="editUserdetails.userName" required="true"
+                    class="input-group mb-3 text-center" type="text" name="username" placeholder="Enter UserName"
+                    id="username" (ngModelChange)="checkUserNameAvailability(username.value)" />
+                </div>
+                <div class="col">
+                  <label for="username" styleClass="labelStyle">
+                    First Name :</label>
+                  <input [(ngModel)]="editUserdetails.firstName" required="true" class="input-group mb-3 text-center"
+                    type="text" name="firstName" placeholder="Enter firstName" id="firstName" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="username" styleClass="labelStyle">Last Name:</label>
+                  <input [(ngModel)]="editUserdetails.lastName" required="true" class="input-group mb-3 text-center"
+                    type="lastName" name="lastName" id="lastName" placeholder="Enter lastName" />
+                </div>
+                <div class="col">
+                  <label for="username" styleClass="labelStyle">
+                    Password:</label>
+
+                  <input [(ngModel)]="editUserdetails.password" required="true" class="input-group mb-3 text-center"
+                    type="password" name="password" id="password" placeholder="Enter Password" />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <label for="username" styleClass="labelStyle">
+                    Designation :</label>
+
+                  <input [(ngModel)]="editUserdetails.designation" required="true" class="input-group mb-3 text-center"
+                    type="designation" name="designation" id="designation" placeholder="Enter designation" />
+                </div>
+                <div class="col">
+                  <label for="username" styleClass="labelStyle"> Email:</label>
+
+                  <input [(ngModel)]="editUserdetails.email" required="true" class="input-group mb-3 text-center"
+                    type="email" name="email" id="email" placeholder="Enter email" />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <label for="username" styleClass="labelStyle">
+                    Contact No:</label>
+
+                  <input [(ngModel)]="editUserdetails.contactNo" required="true" class="input-group mb-3 text-center"
+                    type="contactNo" name="contactNo" id="contactNo" placeholder="Enter contact no" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" *ngIf="showAddPopUp" class="btn btn-success" (click)="CreateUserDetails()">
+        <i class="fa fa-check"></i>  Save
+      </button>
+      <button type="button" *ngIf="showEditPopup" class="btn btn-success" (click)="updateUserDetails()">
+       <i class="fa fa-check"></i> Save
+      </button>&nbsp;
+      <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="ngOnInit()">
+        <i class="fa fa-close"></i>Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" *ngIf="showUploadProfilePic">
+  <div class="popup">
+    <div class="modal-header">
+      <h3 class="modal-title">Upload Profile Picture</h3>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="ngOnInit()"></button>
+    </div>
+    <div>
+      <form #regForm="ngForm">
+        <div class="card">
+          <div class="card-body">
+            <div class="container">
+              <div class="row">
+                <div class="col" style="width: 200px">
+                  <img [src]="editUserdetails.picByte" style="height: 200px" />
+                </div>
+                <div class="col">
+                  <label for="profileImage" styleClass="labelStyle">
+                    Upload profile Image</label>
+                  <input type="file" (change)="chooseProfilePic($event)" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" (click)="uploadProfilePicture()">
+            <i class="fa fa-check"></i> Save
+          </button>&nbsp;
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="ngOnInit()">
+            <i class="fa fa-close"></i>  Close
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

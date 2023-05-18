@@ -1,0 +1,54 @@
+.btnCard {
+  width: 120px;
+  height: 126px;
+  text-align: center;
+  font-size: 50px;
+  font-weight: bold;
+  color: white;
+}
+
+.card-title{
+  color: rgb(255, 255, 255);
+  background-color: #041b4feb;
+  font-family: cursive;
+}
+
+.table{
+  background-color:white;
+  font-family: sans-serif;
+  border-radius: 10%;
+
+}
+.tableData{
+  color: black;
+  text-align: center;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+.tableHeader{
+  background-color: #563d7cde;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  text-align: center;
+  font-family: sans-serif;
+
+}
+.paginator{
+  color: rgb(0, 0, 0);
+  font-family: cursive;
+}
+
+.dot {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-green{
+  background-color: green;
+}
+
+.dot-red{
+  background-color: red;
+}

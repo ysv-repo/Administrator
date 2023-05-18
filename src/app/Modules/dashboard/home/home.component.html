@@ -1,0 +1,117 @@
+<div class="row row-cols-md-2">
+  <!-- Buttons Column -->
+  <div class="col">
+    <div class="card">
+      <h3 class="card-title">User Details</h3>
+      <div class="col">
+        <div class="card-body">
+          <button class="btn btn-success btnCard" (click)="loadAllUsers()">
+            {{ AllUsers.length }}
+            <h6>All Users</h6>
+          </button>
+          &nbsp;
+          <button class="btn btn-warning btnCard" (click)="loadActiveUsers()">
+            {{ ActiveUsers.length }}
+            <h6>Active Users</h6>
+          </button>
+          &nbsp;
+          <button class="btn btn-danger btnCard" (click)="loadInActiveUsers()">
+            {{ InActiveUsers.length }}
+            <h6>InActive Users</h6>
+          </button>
+        </div>
+        <!-- PieChart -->
+        <div class="card" style="height: 300px">
+          <ngx-charts-pie-chart
+            [results]="single"
+            [gradient]="gradient"
+            [legend]="showLegend"
+            [labels]="showLabels"
+            [doughnut]="isDoughnut"
+            (select)="onSelect($event)"
+          >
+          </ngx-charts-pie-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Data Table row -->
+  <div class="col" *ngIf="dataSource.filteredData.length > 0">
+    <div class="card">
+      <div class="card-body">
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" [ngClass]="['table']">
+            <ng-container matColumnDef="Full Name">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                [ngClass]="['tableHeader']"
+                style="background-color: #041b4feb"
+              >
+                User ID
+              </th>
+              <td mat-cell *matCellDef="let element" [ngClass]="['tableData']">
+                {{ element.firstName }} {{ element.lastName }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="User Name">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                [ngClass]="['tableHeader']"
+                style="background-color: #041b4feb"
+              >
+                User Name
+              </th>
+              <td mat-cell *matCellDef="let element" [ngClass]="['tableData']">
+                {{ element.userName }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Designation">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                [ngClass]="['tableHeader']"
+                style="background-color: #041b4feb"
+              >
+                Status
+              </th>
+              <td mat-cell *matCellDef="let element" [ngClass]="['tableData']">
+                {{ element.designation }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Status">
+              <th
+                mat-header-cell
+                *matHeaderCellDef
+                [ngClass]="['tableHeader']"
+                style="background-color: #041b4feb"
+              >
+                Status
+              </th>
+              <td mat-cell *matCellDef="let element" [ngClass]="['tableData']">
+                <span *ngIf="element.activeflag" class="dot dot-green"></span>
+                <span *ngIf="!element.activeflag" class="dot dot-red"></span>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+
+          <mat-paginator
+            [pageSizeOptions]="[5, 10, 20]"
+            [ngClass]="['paginator']"
+            aria-label="Select page of periodic elements"
+          >
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,21 @@
+<div class="row" style="background-color: #9b5676; border-color: white ; width: 1360px;">
+  <span class="mat-bread-crumb-spacer">
+    &nbsp;
+    <span *ngFor="let item of breadCrumbArray; let i = index">
+      <i
+        *ngIf="item.linkName != 'Dashboard'"
+        class="fa fa-angle-right"
+        aria-hidden="true"
+        style="font-size: large; font-weight: bold; color: white"
+      ></i>
+      <a
+        *ngIf="item.linkName != 'Dashboard'"
+        href="item?.linkUrl"
+        class="mat-bread-crumb-list-item"
+        style="color: white; text-decoration: none"
+        >&nbsp;
+        {{ item.linkName }} </a
+      >&nbsp;
+    </span>
+  </span>
+</div>

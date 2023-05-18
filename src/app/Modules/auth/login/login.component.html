@@ -1,0 +1,29 @@
+<p-toast></p-toast>
+<body class="loginBackground">
+  <form #loginform="ngForm">
+    <div class="card login_card">
+      <br />
+      <img src="{{ logo }}" style="
+          border-radius: 50%;
+          border-color: black;
+          width: 100px;
+          height: 100px;
+          margin-left: 160px;
+        " alt="Vinod" />
+      <div class="card-body">
+        <h3 class="card-title" style="text-align: center; color: #000000; font-weight: bold">
+          Login
+        </h3>
+        <label for="username">Enter User Name :</label>
+        <input [(ngModel)]="username" required="true" class="input-group mb-3 text-center" type="text" name="username"
+          placeholder="Enter UserName" id="username" />
+        <label for="username">Enter Password :</label>
+        <input [(ngModel)]="password" required="true" class="input-group mb-3 text-center" type="password"
+          name="password" id="password" placeholder="Enter Password" />
+        <button [disabled]="loginform.invalid" class="input-group btn btn-success" (click)="validate()">
+          SUBMIT
+        </button>
+      </div>
+    </div>
+  </form>
+</body>

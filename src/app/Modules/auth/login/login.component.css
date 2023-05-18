@@ -1,0 +1,20 @@
+label {
+  text-align: center;
+  color: #000000;
+  font-weight: bolder;
+}
+
+.loginBackground{
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url('src\assets\Background.jpg');
+}
+
+.login_card{
+  width: 28rem;
+  height: 27rem;
+  background-color: #cdcbd74f ;
+  left: 480px;
+  top: 100px;
+}
+

@@ -1,0 +1,133 @@
+<p-toast></p-toast>
+<!-- Data Table -->
+<div class="card">
+  <div>
+    <button class="btn" style="float: right;font-size: larger; width: fit-content;" (click)="AddNewRow()" [disabled]="!displayAddNewBtn">
+      <i class="fa fa-plus" style="color: green;"> New</i>
+    </button>
+  </div>
+  <form [formGroup]="UserForm" autocomplete="off">
+    <ng-container formArrayName="UserRows">
+      <table #table mat-table [dataSource]="dataSource" class="mat-elevation-z8 MatTableStyle">
+
+        <ng-container matColumnDef="Display Picture">
+          <th mat-header-cell *matHeaderCellDef>
+            Display Picture
+          </th>
+          <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+            <img *ngIf="!element.value.isReadOnly"
+              [src]="'data:image/jpeg;base64,'+ element.value.picByte"
+              style="height: 50px;width: 50px;  border-radius: 50% !important" />
+            <div id="formFileLg" class="upload-btn-wrapper" *ngIf="element.value.isReadOnly">
+              <button class="btn" style="color: green; font-size: large;">
+                <i class="fa fa-upload" role="button"></i>
+                <input type="file"(change)="chooseDP($event)" />{{filename}}
+              </button>
+
+              <button class="btn" style="color: red; font-size: large;">
+                <i class="fa fa-trash" role="button" (click)="removeDP()"></i>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="userName" style="width: 15%">
+          <th mat-header-cell *matHeaderCellDef>
+            User Name
+          </th>
+          <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+
+            <mat-label *ngIf="!element.value.isReadOnly">{{element.value.userName }}</mat-label>
+
+            <input type="text" styleClass="input-upper" id="inputtext" pInputText formControlName="userName"
+              *ngIf="element.value.isReadOnly" />
+          </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef>
+            First Name
+          </th>
+          <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+
+            <mat-label *ngIf="!element.value.isReadOnly">{{element.value.firstName }}</mat-label>
+
+            <input type="text" styleClass="input-upper" id="inputtext" pInputText formControlName="firstName"
+              *ngIf="element.value.isReadOnly" />
+          </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef>
+            Last Name
+          </th>
+          <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+
+            <mat-label *ngIf="!element.value.isReadOnly">{{element.value.lastName }}</mat-label>
+
+            <input type="text" styleClass="input-upper" id="inputtext" pInputText formControlName="lastName"
+              *ngIf="element.value.isReadOnly" />
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="designation">
+          <th mat-header-cell *matHeaderCellDef>
+            Designation
+          </th>
+          <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+
+            <mat-label *ngIf="!element.value.isReadOnly">{{element.value.designation }}</mat-label>
+
+            <input type="text" styleClass="input-upper" id="inputtext" pInputText formControlName="designation"
+              *ngIf="element.value.isReadOnly" />
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="contactNo">
+          <th mat-header-cell *matHeaderCellDef>
+            Contact No
+          </th>
+          <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+
+            <mat-label *ngIf="!element.value.isReadOnly">{{element.value.contactNo }}</mat-label>
+
+            <input type="text" styleClass="input-upper" id="inputtext" pInputText formControlName="contactNo"
+              *ngIf="element.value.isReadOnly" />
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>
+            Email Address
+          </th>
+          <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+
+            <mat-label *ngIf="!element.value.isReadOnly">{{element.value.email }}</mat-label>
+
+            <input type="text" styleClass="input-upper" id="inputtext" pInputText formControlName="email"
+              *ngIf="element.value.isReadOnly" />
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Action">
+          <th mat-header-cell *matHeaderCellDef>
+            Action
+          </th>
+          <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+            <i class="fa fa-edit" *ngIf="!element.value.isReadOnly" style="color: #182d5d;font-size: large;"
+              role="button" (click)="editRowData(UserForm,i)"></i>
+            <i class="fa fa-check" *ngIf="element.value.isReadOnly" style="color: green;font-size: large;" role="button"
+              (click)="saveRowData(element.value)"></i>&nbsp;
+            <i class="fa fa-close" *ngIf="element.value.isReadOnly" style="color: red;font-size: large;" role="button"
+              (click)="ngOnInit()"></i>
+          </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </ng-container>
+  </form>

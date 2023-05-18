@@ -1,0 +1,57 @@
+mat-toolbar {
+  background-color: #041b4feb;
+  color: white;
+}
+
+mat-sidenav-container {
+  height: calc(88.9vh);
+  background-color: #9dabae52;
+}
+
+mat-sidenav {
+  width: 200px;
+  background-color: #e7acc8;
+}
+.nav-item {
+  text-decoration: solid;
+  color: #563d7c;
+  font-weight: bold;
+  padding-top: 6px;
+  padding-left: 20px;
+}
+
+.navbar-sidenav-container {
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+           /* causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  flex: 1;
+}
+
+.navbar-is-mobile .navbar-sidenav-container {
+  /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+           /* `<body>` to be our scrolling element for mobile layouts. */
+  flex: 1 0 auto;
+}
+
+
+.mat-bread-crumb-spacer {
+  /* margin-left: -20px; */
+  margin-top: 0px;
+  margin-left: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

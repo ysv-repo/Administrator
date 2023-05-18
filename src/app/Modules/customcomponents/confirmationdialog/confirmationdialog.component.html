@@ -1,0 +1,21 @@
+<ng-template #confirmationModal let-c="close" let-d="dismiss">
+  <div class="modal-header" >
+    <h2 class="modal-title"  >
+      Confirmation Dialog
+    </h2>
+    <i class="fa fa-close" role="button" style="color: red;" (click)="d(false)"></i>
+  </div>
+  <div class="modal-body">
+    <p>
+      {{ modalBody }}
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success"  (click)="c(true)">
+      <i class="fa fa-check"></i> Yes
+    </button>
+    <button type="button" class="btn btn-danger" (click)="d(false)">
+      <i class="fa fa-close"></i>  No
+    </button>
+  </div>
+</ng-template>

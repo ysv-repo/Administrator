@@ -1,0 +1,82 @@
+<div class="card">
+  <div class="card-body">
+    <div>
+      <i class="pi pi-file-pdf" role="button" matTooltip="Export To Pdf"
+        style="font-size: x-large; color: #041b4feb; border-color: white;   float: right; margin-bottom: 3px; margin-right: 15px;"
+        (click)="toPdf()">Pdf</i>
+    </div>
+  </div>
+</div>
+
+<div class="card-body" #dataTables>
+  <div *ngFor="let table of tableData" style="margin-top: 20px;">
+    <div class="card">
+      <tr>
+        <label style="font-size: x-large; font-family: cursive; margin-top: 10px; color: #182d5d;">
+          {{table.tableDetails.tableName.toLocaleUpperCase()}}</label>
+        <label style="font-size: small; font-family: cursive; margin-top: 5px; color: darkgoldenrod;">
+          {{table.tableDetails.tableInstructions}}</label>
+      </tr>
+      <br>
+      <table tableStyle="{ 'min-width': '50rem' }">
+        <tr style="background-color: #594d78;text-align: center !important;">
+          <th style="font-size: large; color: rgb(255, 255, 255); font-weight:bold;  ">Sl No.</th>
+          <th *ngFor="let item of table.colDetails ; ">
+            <label style="font-size: large; color: rgb(255, 255, 255); font-weight:bold;  ">
+              {{item.columnName.toLocaleUpperCase()}}
+            </label>
+            <br>
+            <label style="font-size: smaller; color: red; font-weight: lighter;"
+              *ngIf="item.lowerLimit != null || item.upperLimit!=null"> ( {{item.lowerLimit}} to
+              {{item.upperLimit}} {{item.uom}} )</label>
+          </th>
+          <th style="font-size: large; color: rgb(255, 255, 255); font-weight:bold;  ">Action</th>
+
+        </tr>
+
+        <tr style="text-align: center !important;" *ngFor="let row of table.tableData;let slno =index">
+          <td>{{slno+1}}</td>
+          <td *ngFor="let item of table.colDetails;let i =index;">
+            <div *ngIf="row.editflag">
+              <p-inputNumber *ngIf="item.dataType == 'decimal' || item.dataType == 'decimal'" [(ngModel)]="row[i+2]">
+              </p-inputNumber>
+              <p-dropdown [options]="Genders" *ngIf="item.dataType == 'gender'" [(ngModel)]="row[i]"></p-dropdown>
+              <input type="text" pInputText *ngIf="item.dataType == 'string'" [(ngModel)]="row[i]" />
+              <p-calendar *ngIf="item.dataType == 'date' " class="treetableDate" [(ngModel)]="row[i]"
+                [style]="{'width':'50%'}" [inputStyle]="{'width':'0%'}" appendTo="body"></p-calendar>
+            </div>
+            <div *ngIf="!row.editflag">
+              {{row[i]}}
+            </div>
+          </td>
+
+          <div>
+            <td style="text-align : center; float: inline-start;">
+
+              <button class="btn" data-bs-toggle="dropdown" *ngIf="!row.editflag">
+                <i class="fa fa-gear" role="button"></i>
+              </button>
+              <ul class="dropdown-menu" style="background-color: #dfe4e5;">
+                <li><a style="color: #594d78" class="dropdown-item" role="button" (click)="editRow(row)"> <i
+                      class="fa fa-pencil"></i> Edit</a>
+                </li>
+                <li><a style="color: red;" class="dropdown-item" role="button"> <i class="fa fa-trash"></i> Delete</a>
+                </li>
+              </ul>
+
+              <button class="btn" *ngIf="row.editflag">
+                <i class="fa fa-check" role="button" (click)="saveRow(row,slno+1,table.tableId)" style="color: green;"></i>
+              </button>
+              <button class="btn" *ngIf="row.editflag">
+                <i class="fa fa-close" role="button" (click)="ngOnInit()" style="color: red;"></i>
+              </button>
+
+            </td>
+          </div>
+        </tr>
+        <tr style="text-align: center !important;" *ngIf="table.tableData.length==0">
+          No Data Exists
+        </tr>
+      </table>
+    </div>
+  </div>

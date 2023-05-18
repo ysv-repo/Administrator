@@ -1,0 +1,54 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <h5 style="
+        color: white;
+        text-shadow: 0 0 10px #ffffff;
+        font-family: cursive;
+        font-size: larger;
+      ">
+      Laurel Admin
+    </h5>
+
+    <div class="btn-group dropdown" style="flex: right !important; margin-left: 1050px;">
+
+      <button *ngIf="loggedInUserDetails.picByte != null" class="btn dropdown-toggle"
+        style="color: white;" data-bs-toggle="dropdown">
+        <img [src]="loggedInUserDetails.picByte" class="rounded-circle" height="40" />
+
+      </button>
+
+      <button *ngIf="loggedInUserDetails.picByte == null" class="btn dropdown-toggle"
+        style="color: white; border-color: white; border-width: 1px;" data-bs-toggle="dropdown">
+        <i *ngIf="loggedInUserDetails.picByte == null" style="font-size: larger;" class="fa fa-user "></i>
+      </button>
+
+
+      <ul class="dropdown-menu" style="background-color: #dfe4e5;">
+        <li class="dropdown-item" style="font-weight: bold; font-family: cursive; color:#182d5d;">{{
+          loggedInUserDetails.firstName.toUpperCase() }}
+          {{ loggedInUserDetails.lastName.toUpperCase() }}</li>
+        <li><a style="color: rgb(4, 158, 50);" class="dropdown-item" (click)="logout()"> <i class="fa fa-key"
+              aria-hidden="true"></i> Change Password</a>
+
+        <li><a style="color: red;" class="dropdown-item" (click)="logout()"> <i class="fa fa-sign-out"></i> Logout</a>
+        </li>
+      </ul>
+    </div>
+
+
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav-content>
+    <!-- <div style="margin-left: 51px">
+      <app-bread-crumb></app-bread-crumb>
+    </div> -->
+    <div>
+      <app-side-bar></app-side-bar>
+    </div>
+    <div style="margin-left: 50px">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

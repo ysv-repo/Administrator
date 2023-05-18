@@ -1,0 +1,43 @@
+.mat-mdc-header-cell {
+  background:  #182d5d !important;
+  color: white;
+}
+
+.mat-mdc-cell{
+  color: black !important;
+  font-weight: bold;
+  width: 5%  !important;
+}
+
+button, input, optgroup, select, textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  width: 65%;
+}
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-btn {
+  border: 2px solid #66bb6a;
+  background-color: #66bb6a;
+  padding: 5px 5px 5px 5px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+}
+
+.upload-btn-wrapper input[type="file"] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+
