@@ -21,7 +21,7 @@
         </div>
         <div>
           <label style="font-size: x-large; font-family: cursive; margin-top: 10px; color: #182d5d;">
-            {{table.tableDetails.tableName.toLocaleUpperCase()}}</label>
+            {{table.tableDetails!=null?table.tableDetails.tableName.toLocaleUpperCase():''}}</label>
           <label style="font-size: small; font-family: cursive; margin-top: 5px; color: darkgoldenrod;">
             {{table.tableDetails.tableInstructions}}</label>
         </div>
