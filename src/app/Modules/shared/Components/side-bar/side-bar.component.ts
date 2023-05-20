@@ -20,5 +20,7 @@ const ELEMENT_DATA: NavigationLinks[] = [
   { linkName: 'Users', linkUrl: '/users', linkIcon: 'fa fa-user' },
   { linkName: 'InlineEdit', linkUrl: '/users/inlineEdit', linkIcon: 'fa fa-edit' },
   { linkName: 'Dynamic Table', linkUrl: '/dashboard/dynamicTable', linkIcon: 'fa fa-table' },
+  { linkName: 'CreateTable', linkUrl: '/dashboard/CreateDynamicTable', linkIcon: 'fa fa-gear' },
+
 
 ];

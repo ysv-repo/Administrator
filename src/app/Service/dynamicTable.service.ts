@@ -23,4 +23,10 @@ export class DynamicTableService {
       return this.http.get<TableAndColumnDetails[]>(this.apiURL + '/getAllTableData');
     }
 
+
+    CreateTable(data: any) {
+      return this.http.post(this.apiURL + '/CreateNewTable',data);
+    }
+
+
 }

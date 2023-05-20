@@ -1,9 +1,13 @@
+<!-- Table Section Start -->
+
 <div class="card">
   <div class="card-body">
     <div>
       <i class="pi pi-file-pdf" role="button" matTooltip="Export To Pdf"
         style="font-size: x-large; color: #041b4feb; border-color: white;   float: right; margin-bottom: 3px; margin-right: 15px;"
         (click)="toPdf()">Pdf</i>
+      <p-button (click)="showCreateTableDialog()" icon="pi pi-plus" label="New"></p-button>
+
     </div>
   </div>
 </div>
@@ -12,10 +16,15 @@
   <div *ngFor="let table of tableData" style="margin-top: 20px;">
     <div class="card">
       <tr>
-        <label style="font-size: x-large; font-family: cursive; margin-top: 10px; color: #182d5d;">
-          {{table.tableDetails.tableName.toLocaleUpperCase()}}</label>
-        <label style="font-size: small; font-family: cursive; margin-top: 5px; color: darkgoldenrod;">
-          {{table.tableDetails.tableInstructions}}</label>
+        <div style="float: right;">
+          <button class="btn" (click)="showEditTableDialog(table)"><i class="fa fa-edit"> Edit Table</i></button>
+        </div>
+        <div>
+          <label style="font-size: x-large; font-family: cursive; margin-top: 10px; color: #182d5d;">
+            {{table.tableDetails.tableName.toLocaleUpperCase()}}</label>
+          <label style="font-size: small; font-family: cursive; margin-top: 5px; color: darkgoldenrod;">
+            {{table.tableDetails.tableInstructions}}</label>
+        </div>
       </tr>
       <br>
       <table tableStyle="{ 'min-width': '50rem' }">
@@ -38,7 +47,7 @@
           <td>{{slno+1}}</td>
           <td *ngFor="let item of table.colDetails;let i =index;">
             <div *ngIf="row.editflag">
-              <p-inputNumber *ngIf="item.dataType == 'decimal' || item.dataType == 'decimal'" [(ngModel)]="row[i+2]">
+              <p-inputNumber *ngIf="item.dataType == 'decimal' || item.dataType == 'int'" [(ngModel)]="row[i+2]">
               </p-inputNumber>
               <p-dropdown [options]="Genders" *ngIf="item.dataType == 'gender'" [(ngModel)]="row[i]"></p-dropdown>
               <input type="text" pInputText *ngIf="item.dataType == 'string'" [(ngModel)]="row[i]" />
@@ -65,7 +74,8 @@
               </ul>
 
               <button class="btn" *ngIf="row.editflag">
-                <i class="fa fa-check" role="button" (click)="saveRow(row,slno+1,table.tableId)" style="color: green;"></i>
+                <i class="fa fa-check" role="button" (click)="saveRow(row,slno+1,table.tableId)"
+                  style="color: green;"></i>
               </button>
               <button class="btn" *ngIf="row.editflag">
                 <i class="fa fa-close" role="button" (click)="ngOnInit()" style="color: red;"></i>
@@ -80,3 +90,138 @@
       </table>
     </div>
   </div>
+  <!-- Table Section End -->
+
+
+
+  <!-- Create Dynamic Table dialog Start -->
+
+  <p-dialog [(visible)]="visible" [closable]="false">
+    <ng-template pTemplate="header">
+      <!-- Adding Table Templete Start -->
+      <div style=" width: -webkit-fill-available;">
+        <h1 style="font-family: cursive; font-size: xx-large; color: #000158;     background-color: #ffffff;">Create /
+          Edit Dynamic
+          Table</h1>
+        <h3 style="font-family: cursive; font-size:medium; color: #000158; text-align: center;">Displaying Table
+          Templete</h3>
+        <label style="font-family: cursive; font-size: large; color: #000000;">
+          {{tableName}}
+        </label>
+        <br>
+        <label style="font-family: cursive; font-size: small; color: #0f0f0f;">
+          {{tableInstructions}}
+        </label>
+        <p-table [value]="columns" [tableStyle]="{ 'min-width': '50rem' }" title="aksjdn">
+          <ng-template pTemplate="header">
+            <tr>
+              <th *ngFor="let item of columns"
+                style="background-color: #c0cf69; color: rgb(9, 9, 9);text-align: center;">
+                {{item.columnName}}
+                <br>
+                <label style="font-size: smaller; color: red; font-weight: lighter; text-align: center;"
+                  *ngIf="item.lowerLimit != null || item.upperLimit!=null"> ( {{item.lowerLimit}} to
+                  {{item.upperLimit}} {{item.uom}} )</label>
+              </th>
+            </tr>
+
+          </ng-template>
+
+          <ng-template pTemplate="body" class="flex align-items-center" let-col>
+            <td style="text-align: center;">
+              <p-inputNumber *ngIf="col.dataType == 'decimal' || col.dataType == 'int'">
+              </p-inputNumber>
+              <p-dropdown [options]="Genders" *ngIf="col.dataType == 'gender'" placeholder="Select"
+                appendTo="body"></p-dropdown>
+              <input type="text" pInputText *ngIf="col.dataType == 'string'" />
+              <p-calendar *ngIf="col.dataType == 'date' " class="treetableDate" [style]="{'width':'50%'}"
+                [inputStyle]="{'width':'0%'}" appendTo="body"></p-calendar>
+            </td>
+          </ng-template>
+        </p-table>
+      </div>
+      <!-- Adding Table Templete End -->
+    </ng-template>
+
+
+    <!-- Adding Table Details Start-->
+    <p-card>
+      <div class="row">
+        <div class="col" style="width: fit-content;">
+          <label for="name">Table Name</label>
+        </div>
+        <div class="col">
+          <input type="text" pInputText [(ngModel)]="tableName" style="width: 385px;" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="name">Table Instructions</label>
+        </div>
+        <div class="col">
+          <textarea rows="2" cols="50" pInputTextarea [(ngModel)]="tableInstructions"></textarea>
+        </div>
+      </div>
+
+      <p-table [value]="columns" [tabIndex]="1" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Sl No</th>
+            <th>Column Names</th>
+            <th>Data Type</th>
+            <th>Lower Limit</th>
+            <th>UOM</th>
+            <th>Upper Limit</th>
+            <th>Action</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" class="flex align-items-center" let-col>
+          <tr>
+            <td>
+              {{columns.indexOf(col)+1}}
+            </td>
+            <td>
+              <input type="text" pInputText [(ngModel)]="col.columnName" />
+            </td>
+            <td>
+              <p-dropdown appendTo="body" [options]="datatypes" [(ngModel)]="col.dataType"
+                placeholder="Select"></p-dropdown>
+            </td>
+            <td>
+              <p-inputNumber [(ngModel)]="col.lowerLimit"></p-inputNumber>
+            </td>
+            <td>
+              <p-inputNumber [(ngModel)]="col.upperLimit"></p-inputNumber>
+            </td>
+            <td>
+              <p-dropdown appendTo="body" [options]="Uoms" [(ngModel)]="col.uom" placeholder="Select"></p-dropdown>
+            </td>
+            <td>
+
+              <button class="btn dropdown-toggle" style="color: rgb(0, 0, 0); border-color: white; border-width: 1px;"
+                data-bs-toggle="dropdown">
+                <i class="fa  fa-cog"></i>
+              </button>
+
+
+              <ul class="dropdown-menu" style="background-color: #dfe4e5;">
+                <li><a class="dropdown-item" (click)="insertColumnAbove(columns.indexOf(col))"> Insert Above</a></li>
+                <li><a class="dropdown-item" (click)="insertColumnBelow(columns.indexOf(col))">Insert Below</a></li>
+                <li><a class="dropdown-item" (click)="removeColumn(col)">Remove</a></li>
+              </ul>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-card>
+
+    <!-- <button class="btn btn-primary" (click)="insertColumn()">Insert Column</button> -->
+    <ng-template pTemplate="footer">
+      <button class="btn btn-success" *ngIf="addTabeFlg" (click)="SaveTable()">Save</button>
+      <button class="btn btn-success" *ngIf="updateTableFlg" (click)="UpdateTable()">Update</button>
+      <button class="btn btn-danger" (click)="ngOnInit()">Cancel</button>
+    </ng-template>
+    <!-- Adding Table Details End-->
+
+  </p-dialog>
+  <!-- Create Dynamic Table  dialog Start -->

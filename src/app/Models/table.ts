@@ -24,3 +24,9 @@ export interface TableAndColumnDetails {
   colDetails: ColDetails[];
   tableData: tableData[];
 }
+
+
+export interface Table{
+  tableDetails:TableDetails
+  colDetails: ColDetails[];
+}
