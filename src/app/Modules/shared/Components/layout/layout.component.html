@@ -11,8 +11,8 @@
 
     <div class="btn-group dropdown" style="flex: right !important; margin-left: 1050px;">
 
-      <button *ngIf="loggedInUserDetails.picByte != null" class="btn dropdown-toggle"
-        style="color: white;" data-bs-toggle="dropdown">
+      <button *ngIf="loggedInUserDetails.picByte != null" class="btn dropdown-toggle" style="color: white;"
+        data-bs-toggle="dropdown">
         <img [src]="loggedInUserDetails.picByte" class="rounded-circle" height="40" />
 
       </button>
@@ -38,16 +38,13 @@
 
   </mat-toolbar-row>
 </mat-toolbar>
-
+<app-side-bar style="top: 64px;"></app-side-bar>
 <mat-sidenav-container>
   <mat-sidenav-content>
     <!-- <div style="margin-left: 51px">
       <app-bread-crumb></app-bread-crumb>
     </div> -->
-    <div>
-      <app-side-bar></app-side-bar>
-    </div>
-    <div style="margin-left: 50px">
+    <div class="content" style="margin-left: 50px; margin-top: 10px;">
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>

@@ -26,6 +26,7 @@ import { CardModule } from 'primeng/card';
 import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ScrollerModule } from 'primeng/scroller';
 
 
 
@@ -49,6 +50,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     PanelModule,
     ButtonModule,
     InputTextareaModule,
+    ScrollerModule,
+    
 
     // NgMaterial Imports
     MatToolbarModule,

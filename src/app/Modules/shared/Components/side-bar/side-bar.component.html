@@ -1,14 +1,13 @@
 <nav class="main-menu">
-  <ul>
-      <li *ngFor="let item of navigationLinks">
-          <a [routerLink]="[item.linkUrl]">
-              <i class="{{item.linkIcon}}" style="color: #041b4feb;"></i>&nbsp;&nbsp;
-              <span class="nav-text" style="color: #041b4feb; font-weight: bold;">
-                 {{item.linkName}}
-              </span>
-
-          </a>
-
-      </li>
-  </ul>
+    <ul>
+        <li *ngFor="let item of navigationLinks">
+            <a [routerLink]="[item.linkUrl]">
+                <i class="{{item.linkIcon}}" style="color: #041b4feb; font-size: x-large;"></i>&nbsp;&nbsp;
+                <span class="nav-text" style="color: #041b4feb; font-weight: bold;font-size: medium;">
+                    {{item.linkName}}
+                </span>
+            </a>
+            <br>
+        </li>
+    </ul>
 </nav>

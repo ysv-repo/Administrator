@@ -45,7 +45,7 @@ export class DynamictablesComponent implements OnInit {
   ) {
     this.Genders = ['Select', 'Male', 'Female'];
   }
-  ngAfterViewInit() {}
+  ngAfterViewInit() { }
 
   ngOnInit(): void {
     this.tableService.getAllTableData().subscribe((data) => {
@@ -146,7 +146,7 @@ export class DynamictablesComponent implements OnInit {
       upperLimit: null,
       uom: null,
     };
-    this.columns.splice(position+1, 0, col);
+    this.columns.splice(position + 1, 0, col);
     console.log(this.columns);
   }
 
@@ -167,15 +167,14 @@ export class DynamictablesComponent implements OnInit {
       colDetails: this.columns,
     };
 
-    this.dynamicTableCreator.CreateTable(this.table).subscribe((data) => {
-      if (data) {
-        this.messageService.add({
-          severity: 'success',
-          detail: 'Table Created Sucessfully!',
-        });
-      }
-    });
-    this.ngOnInit();
+    this.dynamicTableCreator.CreateTable(this.table).subscribe();
+    setTimeout(() => {
+      this.messageService.add({
+        severity: 'success',
+        detail: 'Table Created Sucessfully!',
+      });
+      this.ngOnInit();
+    }, 100);
   }
 
   showEditTableDialog(tableDetails: TableAndColumnDetails) {
@@ -186,10 +185,28 @@ export class DynamictablesComponent implements OnInit {
     this.tableInstructions = tableDetails.tableDetails.tableInstructions;
     this.tableDetails = tableDetails.tableDetails;
     this.columns = tableDetails.colDetails;
-
-
   }
+
   UpdateTable() {
+    this.table = {
+      tableDetails: {
+        tableId: this.tableDetails.tableId,
+        tableName: this.tableName,
+        tableInstructions: this.tableInstructions,
+      },
+      colDetails: this.columns,
+    };
+    
+    this.dynamicTableCreator.update(this.table).subscribe();
+    setTimeout(() => {
+      this.messageService.add({
+        severity: 'success',
+        detail: 'Table Updated Sucessfully!',
+      });
+      this.ngOnInit();
+    }, 100);
+
+
     this.visible = false;
     this.updateTableFlg = false;
   }

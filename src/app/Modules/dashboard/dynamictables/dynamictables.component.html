@@ -1,5 +1,6 @@
-<!-- Table Section Start -->
+<p-toast></p-toast>
 
+<!-- Table Section Start -->
 <div class="card">
   <div class="card-body">
     <div>
@@ -22,14 +23,14 @@
         <div>
           <label style="font-size: x-large; font-family: cursive; margin-top: 10px; color: #182d5d;">
             {{table.tableDetails!=null?table.tableDetails.tableName.toLocaleUpperCase():''}}</label>
+          <hr>
           <label style="font-size: small; font-family: cursive; margin-top: 5px; color: darkgoldenrod;">
             {{table.tableDetails.tableInstructions}}</label>
         </div>
       </tr>
-      <br>
       <table tableStyle="{ 'min-width': '50rem' }">
         <tr style="background-color: #594d78;text-align: center !important;">
-          <th style="font-size: large; color: rgb(255, 255, 255); font-weight:bold;  ">Sl No.</th>
+          <th style="font-size: large; color: rgb(255, 255, 255); font-weight:bold; width: 60px;  ">Sl No.</th>
           <th *ngFor="let item of table.colDetails ; ">
             <label style="font-size: large; color: rgb(255, 255, 255); font-weight:bold;  ">
               {{item.columnName.toLocaleUpperCase()}}
@@ -39,12 +40,12 @@
               *ngIf="item.lowerLimit != null || item.upperLimit!=null"> ( {{item.lowerLimit}} to
               {{item.upperLimit}} {{item.uom}} )</label>
           </th>
-          <th style="font-size: large; color: rgb(255, 255, 255); font-weight:bold;  ">Action</th>
+          <th style="font-size: large; color: rgb(255, 255, 255); font-weight:bold;   width: 120px;">Action</th>
 
         </tr>
 
         <tr style="text-align: center !important;" *ngFor="let row of table.tableData;let slno =index">
-          <td>{{slno+1}}</td>
+          <td style="  width: 60px;">{{slno+1}}</td>
           <td *ngFor="let item of table.colDetails;let i =index;">
             <div *ngIf="row.editflag">
               <p-inputNumber *ngIf="item.dataType == 'decimal' || item.dataType == 'int'" [(ngModel)]="row[i+2]">
@@ -60,7 +61,7 @@
           </td>
 
           <div>
-            <td style="text-align : center; float: inline-start;">
+            <td style="text-align : center; float: inline-start;  width: 120px;">
 
               <button class="btn" data-bs-toggle="dropdown" *ngIf="!row.editflag">
                 <i class="fa fa-gear" role="button"></i>
