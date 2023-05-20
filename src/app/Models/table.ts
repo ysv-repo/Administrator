@@ -11,6 +11,7 @@ export interface ColDetails {
   lowerLimit: number;
   upperLimit: number;
   uom: string;
+  activeFlag : boolean;
 }
 
 export interface tableData {

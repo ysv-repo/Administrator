@@ -1,15 +1,16 @@
 <mat-toolbar>
   <mat-toolbar-row>
-    <h5 style="
+    <div style="margin-right: 88%;">
+      <h5 style="
         color: white;
         text-shadow: 0 0 10px #ffffff;
         font-family: cursive;
         font-size: larger;
       ">
-      Laurel Admin
-    </h5>
-
-    <div class="btn-group dropdown" style="flex: right !important; margin-left: 1050px;">
+        Laurel Admin
+      </h5>
+    </div>
+    <div class="btn-group dropdown">
 
       <button *ngIf="loggedInUserDetails.picByte != null" class="btn dropdown-toggle" style="color: white;"
         data-bs-toggle="dropdown">

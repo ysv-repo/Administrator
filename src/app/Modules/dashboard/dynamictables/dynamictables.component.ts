@@ -115,6 +115,7 @@ export class DynamictablesComponent implements OnInit {
       lowerLimit: null,
       upperLimit: null,
       uom: null,
+      activeFlag : true
     }];
     this.tableName = '';
     this.tableInstructions = '';
@@ -131,6 +132,7 @@ export class DynamictablesComponent implements OnInit {
       lowerLimit: null,
       upperLimit: null,
       uom: null,
+      activeFlag :true
     };
     this.columns.splice(position, 0, col);
     console.log(this.columns);
@@ -145,16 +147,15 @@ export class DynamictablesComponent implements OnInit {
       lowerLimit: null,
       upperLimit: null,
       uom: null,
+      activeFlag : true,
     };
     this.columns.splice(position + 1, 0, col);
     console.log(this.columns);
   }
 
-  removeColumn(position: any) {
-
-    this.columns.splice(position, 1);
-    console.log(this.columns);
-
+  removeColumn(column: ColDetails) {
+    column.activeFlag = false;
+    this.columns.splice(this.columns.indexOf(column), 1);
   }
 
   SaveTable() {
@@ -196,7 +197,7 @@ export class DynamictablesComponent implements OnInit {
       },
       colDetails: this.columns,
     };
-    
+
     this.dynamicTableCreator.update(this.table).subscribe();
     setTimeout(() => {
       this.messageService.add({
@@ -222,6 +223,7 @@ const COL_DATA = [
     lowerLimit: null,
     upperLimit: null,
     uom: null,
+    activeFlag : false
   }
 ];
 

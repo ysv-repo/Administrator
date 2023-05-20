@@ -33,7 +33,7 @@
           <th style="font-size: large; color: rgb(255, 255, 255); font-weight:bold; width: 60px;  ">Sl No.</th>
           <th *ngFor="let item of table.colDetails ; ">
             <label style="font-size: large; color: rgb(255, 255, 255); font-weight:bold;  ">
-              {{item.columnName.toLocaleUpperCase()}}
+              {{item.columnName==null?'':item.columnName.toLocaleUpperCase()}}
             </label>
             <br>
             <label style="font-size: smaller; color: red; font-weight: lighter;"
