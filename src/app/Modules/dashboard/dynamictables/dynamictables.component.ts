@@ -11,6 +11,9 @@ import {
 import { Constants } from 'src/app/Service/constants';
 import { DynamicTableService } from 'src/app/Service/dynamicTable.service';
 import { storageService } from 'src/app/Service/storageService';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { ChangeEvent } from '@ckeditor/ckeditor5-angular';
+
 
 @Component({
   selector: 'app-dynamictables',
@@ -30,6 +33,8 @@ export class DynamictablesComponent implements OnInit {
   datatypes: string[];
   Uoms: string[];
   public const: Constants;
+  public Editor = ClassicEditor;
+
 
   @ViewChild('dataTables') divToPrint: ElementRef;
   addTabeFlg: boolean;
@@ -37,6 +42,9 @@ export class DynamictablesComponent implements OnInit {
 
   public tableService = inject(DynamicTableService);
 
+  public model = {
+    editorData: 
+};
 
   constructor(
     public storageService: storageService,
@@ -115,7 +123,7 @@ export class DynamictablesComponent implements OnInit {
       lowerLimit: null,
       upperLimit: null,
       uom: null,
-      activeFlag : true
+      activeFlag: true
     }];
     this.tableName = '';
     this.tableInstructions = '';
@@ -132,7 +140,7 @@ export class DynamictablesComponent implements OnInit {
       lowerLimit: null,
       upperLimit: null,
       uom: null,
-      activeFlag :true
+      activeFlag: true
     };
     this.columns.splice(position, 0, col);
     console.log(this.columns);
@@ -147,7 +155,7 @@ export class DynamictablesComponent implements OnInit {
       lowerLimit: null,
       upperLimit: null,
       uom: null,
-      activeFlag : true,
+      activeFlag: true,
     };
     this.columns.splice(position + 1, 0, col);
     console.log(this.columns);
@@ -185,7 +193,16 @@ export class DynamictablesComponent implements OnInit {
     this.tableName = tableDetails.tableDetails.tableName;
     this.tableInstructions = tableDetails.tableDetails.tableInstructions;
     this.tableDetails = tableDetails.tableDetails;
-    this.columns = tableDetails.colDetails;
+    this.columns = tableDetails.colDetails.length > 0 ? tableDetails.colDetails : [{
+      tableId: null,
+      serialNo: null,
+      columnName: null,
+      dataType: null,
+      lowerLimit: null,
+      upperLimit: null,
+      uom: null,
+      activeFlag: true
+    }];
   }
 
   UpdateTable() {
@@ -206,12 +223,9 @@ export class DynamictablesComponent implements OnInit {
       });
       this.ngOnInit();
     }, 100);
-
-
     this.visible = false;
     this.updateTableFlg = false;
   }
-
 }
 
 const COL_DATA = [
@@ -223,7 +237,7 @@ const COL_DATA = [
     lowerLimit: null,
     upperLimit: null,
     uom: null,
-    activeFlag : false
+    activeFlag: false
   }
 ];
 
