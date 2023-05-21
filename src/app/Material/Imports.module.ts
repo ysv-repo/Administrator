@@ -27,6 +27,7 @@ import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ScrollerModule } from 'primeng/scroller';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 
@@ -38,6 +39,9 @@ import { ScrollerModule } from 'primeng/scroller';
     ReactiveFormsModule,
     MatFormFieldModule,
     ToastModule,
+
+    //CkEditor Imports
+    CKEditorModule,
 
     // PrimeNg Imports
     TableModule,

@@ -97,7 +97,7 @@
 
   <!-- Create Dynamic Table dialog Start -->
 
-  <p-dialog [(visible)]="visible" [closable]="false">
+  <p-dialog [(visible)]="visible" [closable]="false" style="width: 1271px !important;">
     <ng-template pTemplate="header">
       <!-- Adding Table Templete Start -->
       <div style=" width: -webkit-fill-available;">
@@ -113,7 +113,8 @@
         <label style="font-family: cursive; font-size: small; color: #0f0f0f;">
           {{tableInstructions}}
         </label>
-        <p-table [value]="columns" [tableStyle]="{ 'min-width': '50rem' }" title="aksjdn">
+        <p-table *ngIf="columns[0].columnName != null" [value]="columns" [tableStyle]="{ 'min-width': '50rem' }"
+          title="aksjdn">
           <ng-template pTemplate="header">
             <tr>
               <th *ngFor="let item of columns"
@@ -148,7 +149,7 @@
     <!-- Adding Table Details Start-->
     <p-card>
       <div class="row">
-        <div class="col" style="width: fit-content;">
+        <div class="col" style=" flex: 0 0 16%;">
           <label for="name">Table Name</label>
         </div>
         <div class="col">
@@ -156,11 +157,13 @@
         </div>
       </div>
       <div class="row">
-        <div class="col">
+        <div class="col" style=" flex: 0 0 %;">
           <label for="name">Table Instructions</label>
         </div>
         <div class="col">
-          <textarea rows="2" cols="50" pInputTextarea [(ngModel)]="tableInstructions"></textarea>
+          <!-- <textarea rows="2" cols="50" pInputTextarea [(ngModel)]="tableInstructions"></textarea> -->
+          <!-- <ckeditor [editor]="Editor" data="{{tableInstructions}}" (change)="onChange($event)" style="width: 600px;"></ckeditor> -->
+          <ckeditor [(ngModel)]="model.editorData" [editor]="Editor"></ckeditor>
         </div>
       </div>
 
